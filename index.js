@@ -50,6 +50,78 @@ router.get("/api/wx_openid", async (ctx) => {
   }
 });
 
+"touser":"OPENID",
+"template_id":"ngqIpbwh8bUfcSsECmogfXcV14J0tQlEpBO27izEYtY",
+"url":"http://weixin.qq.com/download",  
+"miniprogram":{
+ "appid":"xiaochengxuappid12345",
+ "pagepath":"index?foo=bar"
+},          
+"data":{
+       "first": {
+           "value":"恭喜你购买成功！",
+           "color":"#173177"
+       },
+       "keyword1":{
+           "value":"巧克力",
+           "color":"#173177"
+       },
+       "keyword2": {
+           "value":"39.8元",
+           "color":"#173177"
+       },
+       "keyword3": {
+           "value":"2014年9月22日",
+           "color":"#173177"
+       },
+       "remark":{
+           "value":"欢迎再次购买！",
+           "color":"#173177"
+       }
+}
+router.get("/api/wx_template_send", async (ctx) => {
+  ctx.body = new Promise((resolve, reject) => {
+    request({
+      method: 'POST',
+      url: 'https://api.weixin.qq.com/cgi-bin/message/template/send', // 这里就是少了一个token
+      body: JSON.stringify({
+        "touser": 'oQlTZ6YQBpv89Rwk_68HwDQbMOjI', // 可以从请求的header中直接获取 req.headers['x-wx-openid']
+        "template_id":"YxhlD55nccE7mA4TxVuNjF80I4hRchT_hZ0LxSByPho",
+//         "url":"http://weixin.qq.com/download",  
+//         "miniprogram":{
+//            "appid":"xiaochengxuappid12345",
+//            "pagepath":"index?foo=bar"
+//         },          
+        "data":{
+             "first": {
+                 "value":"恭喜你购买成功！",
+                 "color":"#173177"
+             },
+             "keyword1":{
+                 "value":"巧克力",
+                 "color":"#173177"
+             },
+             "keyword2": {
+                 "value":"39.8元",
+                 "color":"#173177"
+             },
+             "keyword3": {
+                 "value":"2014年9月22日",
+                 "color":"#173177"
+             },
+             "remark":{
+                 "value":"欢迎再次购买！",
+                 "color":"#173177"
+             }
+        }
+      })
+    },function (error, response) {
+      console.log('接口返回内容', response.body)
+      resolve(JSON.parse(response.body))
+    })
+  })
+});
+
 const app = new Koa();
 app
   .use(logger())
