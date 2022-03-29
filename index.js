@@ -3,6 +3,7 @@ const Router = require("koa-router");
 const logger = require("koa-logger");
 const bodyParser = require("koa-bodyparser");
 const fs = require("fs");
+const request = require('request')
 const path = require("path");
 const { init: initDB, Counter } = require("./db");
 
