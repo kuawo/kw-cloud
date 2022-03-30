@@ -52,7 +52,10 @@ router.get("/api/wx_openid", async (ctx) => {
 });
 
 
-router.get("/api/wx_template_send", async (ctx) => {
+router.post("/api/wx_template_send", async (ctx) => {
+  const { request } = ctx;
+  const { action } = request.body;
+  console.log(request, action)
   ctx.body = new Promise((resolve, reject) => {
     request({
       method: 'POST',
@@ -60,31 +63,27 @@ router.get("/api/wx_template_send", async (ctx) => {
       body: JSON.stringify({
         "touser": 'oQlTZ6YQBpv89Rwk_68HwDQbMOjI', // 可以从请求的header中直接获取 req.headers['x-wx-openid'] 
         "template_id":"YxhlD55nccE7mA4TxVuNjF80I4hRchT_hZ0LxSByPho",
-//         "url":"http://weixin.qq.com/download",  
+        "url":"https://cloud1-2gpdvte2f9757356-1309937233.tcloudbaseapp.com/#/",
 //         "miniprogram":{
 //            "appid":"xiaochengxuappid12345",
 //            "pagepath":"index?foo=bar"
 //         },          
         "data":{
              "first": {
-                 "value":"恭喜你购买成功！",
-                 "color":"#173177"
+                 "value":"恭喜你充值成功，660悦点已到账！",
+                 "color":"#00a870"
              },
-             "keyword1":{
-                 "value":"巧克力",
-                 "color":"#173177"
+             "keyword1": {
+                 "value":"39.8元",
+                 "color":"#0052d9"
              },
              "keyword2": {
-                 "value":"39.8元",
-                 "color":"#173177"
-             },
-             "keyword3": {
                  "value":"2014年9月22日",
-                 "color":"#173177"
+                 "color":"#eeeeee"
              },
              "remark":{
-                 "value":"欢迎再次购买！",
-                 "color":"#173177"
+                 "value":"账户余额：1200悦点",
+                 "color":"#eeeeee"
              }
         }
       })
