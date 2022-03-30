@@ -58,7 +58,7 @@ router.get("/api/wx_template_send", async (ctx) => {
       method: 'POST',
       url: 'https://api.weixin.qq.com/cgi-bin/message/template/send',
       body: JSON.stringify({
-        "touser": 'oQlTZ6YQBpv89Rwk_68HwDQbMOjI', // 可以从请求的header中直接获取 req.headers['x-wx-openid']
+        "touser": 'oQlTZ6YQBpv89Rwk_68HwDQbMOjI', // 可以从请求的header中直接获取 req.headers['x-wx-openid'] 
         "template_id":"YxhlD55nccE7mA4TxVuNjF80I4hRchT_hZ0LxSByPho",
 //         "url":"http://weixin.qq.com/download",  
 //         "miniprogram":{
