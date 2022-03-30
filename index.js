@@ -28,20 +28,20 @@ router.get("/api/wx_openid", async (ctx) => {
 
 // 发送模板消息
 router.post("/api/kw_template_send", async (ctx) => {
-  let np = new Promise((resolve, reject) => {
-    send_request({
-      method: 'POST',
-      url: 'https://api.weixin.qq.com/cgi-bin/message/template/send',
-      body: JSON.stringify(ctx.request.body)
-    },function (error, response) {
-      console.log('接口返回内容', response.body)
-      resolve(JSON.parse(response.body))
+  let rspJson = () => {
+    return new Promise((resolve, reject) => {
+      send_request({
+        method: 'POST',
+        url: 'https://api.weixin.qq.com/cgi-bin/message/template/send',
+        body: JSON.stringify(ctx.request.body)
+      },function (error, response) {
+        console.log('接口返回内容', response.body)
+        resolve(JSON.parse(response.body))
+      })
     })
-  })
-  
-  np.then((body) => {
-      ctx.body = body
-  })
+  }
+  // 返回给前端
+  ctx.body = await rspJson()
 });
 
 const app = new Koa();
