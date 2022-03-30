@@ -11,6 +11,9 @@ const router = new Router();
 
 const homePage = fs.readFileSync(path.join(__dirname, "index.html"), "utf-8");
 
+const app = new Koa();
+app.use(bodyParser())
+
 // 首页
 router.get("/", async (ctx) => {
   ctx.body = homePage;
@@ -68,12 +71,9 @@ router.post("/api/template/send", async (ctx) => {
   })
 });
 
-const app = new Koa();
-app
-  .use(logger())
-  .use(bodyParser())
-  .use(router.routes())
-  .use(router.allowedMethods());
+app.use(logger())
+app.use(router.routes())
+app.use(router.allowedMethods());
 
 const port = process.env.PORT || 80;
 async function bootstrap() {
