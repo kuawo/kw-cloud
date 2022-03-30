@@ -53,6 +53,7 @@ router.get("/api/wx_openid", async (ctx) => {
 
 // 发送模板消息
 router.post("/api/template/send", async (ctx) => {
+  console.log(ctx)
   ctx.body = new Promise((resolve, reject) => {
     request({
       method: 'POST',
