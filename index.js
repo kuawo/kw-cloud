@@ -3,7 +3,7 @@ const Router = require("koa-router");
 const logger = require("koa-logger");
 const bodyParser = require("koa-bodyparser");
 const fs = require("fs");
-const request = require('request')
+const send_request = require('request')
 const path = require("path");
 const { init: initDB, Counter } = require("./db");
 
@@ -53,12 +53,14 @@ router.get("/api/wx_openid", async (ctx) => {
 
 // 发送模板消息
 router.post("/api/template/send", async (ctx) => {
-  const { request: req } = ctx;
+  const { request } = ctx;
+  console.log(request)
+  console.log(ctx.body)
   ctx.body = new Promise((resolve, reject) => {
-    request({
+    send_request({
       method: 'POST',
       url: 'https://api.weixin.qq.com/cgi-bin/message/template/send',
-      body: req.body
+      body: request.body
     },function (error, response) {
       console.log('接口返回内容', response.body)
       resolve(JSON.parse(response.body))
