@@ -58,7 +58,7 @@ router.post("/api/template/send", async (ctx) => {
     send_request({
       method: 'POST',
       url: 'https://api.weixin.qq.com/cgi-bin/message/template/send',
-      body: ctx.request.body
+      body: JSON.stringify(ctx.request.body)
     },function (error, response) {
       console.log('接口返回内容', response.body)
       resolve(JSON.parse(response.body))
