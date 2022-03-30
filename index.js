@@ -1,7 +1,7 @@
 const Koa = require("koa");
 const Router = require("koa-router");
 const logger = require("koa-logger");
-const bodyParser = require("koa-bodyparser");
+const koaBody = require("koa-body");
 const fs = require("fs");
 const send_request = require('request')
 const path = require("path");
@@ -10,9 +10,6 @@ const { init: initDB, Counter } = require("./db");
 const router = new Router();
 
 const homePage = fs.readFileSync(path.join(__dirname, "index.html"), "utf-8");
-
-const app = new Koa();
-app.use(bodyParser())
 
 // 首页
 router.get("/", async (ctx) => {
@@ -71,9 +68,12 @@ router.post("/api/template/send", async (ctx) => {
   })
 });
 
-app.use(logger())
-app.use(router.routes())
-app.use(router.allowedMethods());
+const app = new Koa();
+app
+  .use(koaBody())
+  .use(logger())
+  .use(router.routes())
+  .use(router.allowedMethods());
 
 const port = process.env.PORT || 80;
 async function bootstrap() {
