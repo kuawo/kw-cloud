@@ -1,15 +1,18 @@
 const Koa = require("koa");
+
 const Router = require("koa-router");
 const logger = require("koa-logger");
 const koaBody = require("koa-body");
-const fs = require("fs");
+
 const send_request = require('request')
-const path = require("path");
+
+// const fs = require("fs");
+// const path = require("path");
 // const { init: initDB, Counter } = require("./db");
 
-const router = new Router();
-
 // const homePage = fs.readFileSync(path.join(__dirname, "index.html"), "utf-8");
+
+const router = new Router();
 
 // 首页
 router.get("/", async (ctx) => {
@@ -38,11 +41,7 @@ router.post("/api/kw_template_send", async (ctx) => {
 });
 
 const app = new Koa();
-app
-  .use(koaBody())
-  .use(logger())
-  .use(router.routes())
-  .use(router.allowedMethods());
+app.use(koaBody()).use(logger()).use(router.routes()).use(router.allowedMethods());
 
 const port = process.env.PORT || 80;
 app.listen(port, () => {
