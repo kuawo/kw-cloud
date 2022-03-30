@@ -28,7 +28,7 @@ router.get("/api/wx_openid", async (ctx) => {
 
 // 发送模板消息
 router.post("/api/kw_template_send", async (ctx) => {
-  ctx.body = new Promise((resolve, reject) => {
+  new Promise((resolve, reject) => {
     send_request({
       method: 'POST',
       url: 'https://api.weixin.qq.com/cgi-bin/message/template/send',
@@ -37,6 +37,8 @@ router.post("/api/kw_template_send", async (ctx) => {
       console.log('接口返回内容', response.body)
       resolve(JSON.parse(response.body))
     })
+  }).then((body) => {
+      ctx.body = body
   })
 });
 
