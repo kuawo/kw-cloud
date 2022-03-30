@@ -53,12 +53,12 @@ router.get("/api/wx_openid", async (ctx) => {
 
 // 发送模板消息
 router.post("/api/template/send", async (ctx) => {
-  console.log(ctx)
+  const { request: req } = ctx;
   ctx.body = new Promise((resolve, reject) => {
     request({
       method: 'POST',
       url: 'https://api.weixin.qq.com/cgi-bin/message/template/send',
-      body: ctx.request.body
+      body: req.body
     },function (error, response) {
       console.log('接口返回内容', response.body)
       resolve(JSON.parse(response.body))
