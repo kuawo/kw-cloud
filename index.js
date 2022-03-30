@@ -53,9 +53,9 @@ router.get("/api/wx_openid", async (ctx) => {
 
 
 router.post("/api/wx_template_send", async (ctx) => {
-  const { request } = ctx;
-  const { action } = request.body;
-  console.log(request, action)
+//   const { request } = ctx;
+//   const { action } = request.body;
+//   console.log(request, action)
   ctx.body = new Promise((resolve, reject) => {
     request({
       method: 'POST',
