@@ -44,6 +44,24 @@ router.post("/api/kw_template_send", async (ctx) => {
   ctx.body = await rspJson()
 });
 
+// 发送客服消息
+router.post("/api/kw_custom_send", async (ctx) => {
+  let rspJson = () => {
+    return new Promise((resolve, reject) => {
+      send_request({
+        method: 'POST',
+        url: 'https://api.weixin.qq.com/cgi-bin/message/custom/send',
+        body: JSON.stringify(ctx.request.body)
+      },function (error, response) {
+        console.log('接口返回内容', response.body)
+        resolve(JSON.parse(response.body))
+      })
+    })
+  }
+  // 返回给前端
+  ctx.body = await rspJson()
+});
+
 const app = new Koa();
 app.use(koaBody()).use(logger()).use(router.routes()).use(router.allowedMethods());
 
