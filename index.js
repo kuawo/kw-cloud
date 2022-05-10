@@ -27,39 +27,66 @@ router.get("/api/wx_openid", async (ctx) => {
 });
 
 // 发送模板消息
+// router.post("/api/kw_template_send", async (ctx) => {
+//   let rspJson = () => {
+//     return new Promise((resolve, reject) => {
+//       send_request({
+//         method: 'POST',
+//         url: 'https://api.weixin.qq.com/cgi-bin/message/template/send',
+//         body: JSON.stringify(ctx.request.body)
+//       },function (error, response) {
+//         console.log('接口返回内容', response.body)
+//         resolve(JSON.parse(response.body))
+//       })
+//     })
+//   }
+//   // 返回给前端
+//   ctx.body = await rspJson()
+// });
+
+// 发送模板消息
 router.post("/api/kw_template_send", async (ctx) => {
-  let rspJson = () => {
-    return new Promise((resolve, reject) => {
-      send_request({
-        method: 'POST',
-        url: 'https://api.weixin.qq.com/cgi-bin/message/template/send',
-        body: JSON.stringify(ctx.request.body)
-      },function (error, response) {
-        console.log('接口返回内容', response.body)
-        resolve(JSON.parse(response.body))
-      })
-    })
-  }
+  send_request({
+    method: 'POST',
+    url: 'https://api.weixin.qq.com/cgi-bin/message/template/send',
+    body: JSON.stringify(ctx.request.body)
+  },function (error, response) {
+    console.log('接口返回内容', response.body)
+  })
   // 返回给前端
-  ctx.body = await rspJson()
+  ctx.body = ctx.request.body
 });
 
 // 发送客服消息
+// router.post("/api/kw_custom_send", async (ctx) => {
+//   let rspJson = () => {
+//     return new Promise((resolve, reject) => {
+//       send_request({
+//         method: 'POST',
+//         url: 'https://api.weixin.qq.com/cgi-bin/message/custom/send',
+//         body: JSON.stringify(ctx.request.body)
+//       },function (error, response) {
+//         console.log('接口返回内容', response.body)
+//         resolve(JSON.parse(response.body))
+//       })
+//     })
+//   }
+//   // 返回给前端
+//   ctx.body = await rspJson()
+// });
+
+// 发送客服消息
 router.post("/api/kw_custom_send", async (ctx) => {
-  let rspJson = () => {
-    return new Promise((resolve, reject) => {
-      send_request({
-        method: 'POST',
-        url: 'https://api.weixin.qq.com/cgi-bin/message/custom/send',
-        body: JSON.stringify(ctx.request.body)
-      },function (error, response) {
-        console.log('接口返回内容', response.body)
-        resolve(JSON.parse(response.body))
-      })
-    })
-  }
+  send_request({
+    method: 'POST',
+    url: 'https://api.weixin.qq.com/cgi-bin/message/custom/send',
+    body: JSON.stringify(ctx.request.body)
+  },function (error, response) {
+    console.log('接口返回内容', response.body)
+    resolve(JSON.parse(response.body))
+  })
   // 返回给前端
-  ctx.body = await rspJson()
+  ctx.body = ctx.request.body
 });
 
 const app = new Koa();
