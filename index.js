@@ -83,7 +83,6 @@ router.post("/api/kw_custom_send", async (ctx) => {
     body: JSON.stringify(ctx.request.body)
   },function (error, response) {
     console.log('接口返回内容', response.body)
-    resolve(JSON.parse(response.body))
   })
   // 返回给前端
   ctx.body = ctx.request.body
